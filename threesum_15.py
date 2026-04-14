@@ -67,11 +67,11 @@ class Solution:
                 while second < third and nums[second] + nums[third] > target:
                     third -= 1
                 
-                # 如果指针重合，后面不可能找到符合条件的数，直接退出
+                # 如果指针重合，后面不可能找到符合条件的数，直接退出  ^-^  If the pointers coincide and it is impossible to find a number that meets the criteria, exit directly
                 if second == third:
                     break
                 
-                # 找到符合条件的 b + c = target，即 a + b + c = 0
+                # 找到符合条件的 b + c = target，即 a + b + c = 0  ^-^  Find b+c=target that meets the criteria, i.e. a+b+c=0
                 if nums[second] + nums[third] == target:
                     ans.append([nums[first], nums[second], nums[third]])
         

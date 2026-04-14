@@ -1,13 +1,9 @@
 # 导入题解类，文件名不允许纯数字哦。Importing solution classes does not allow file names to be purely numerical.
 # 也不允许用数字开头哦。It is also not allowed to start with a number.
 
-from threesum_15 import Solution
-
+from threesum_15_clean import Solution
 
 from tqdm import tqdm  # 进度条库，Python 内置/常用  Progress bar library, built-in/commonly used in Python
-
-from threesum_15 import Solution
-from tqdm import tqdm
 
 def sort_triplet(triplet):
     """统一排序，避免顺序不同导致判错"""

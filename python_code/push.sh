@@ -9,3 +9,9 @@ git checkout -b xsm_666
 
 # 2. 推送到远程 GitHub，并建立关联
 git push -u origin xsm_666
+
+
+# in xsm_666 merge master
+
+git fetch
+git merge origin/dev

@@ -1,0 +1,68 @@
+id,name,email
+1, alice , ALICE@EXAMPLE.COM
+2,, bob@example.com
+3,charlie!,charlie@
+4,david,DAVID@example.com
+5,evelyn.lee,evelyn@example.com
+,frank,frank@example.com
+7,grace,grace@example.com
+7,helen,helen@example.com
+8, ivan ivanov , IVAN@EXAMPLE.COM
+9,jacob,jacob@.com
+10,kevin@space,kevin@example.com
+
+, , 
+11,laura,laura@example.com
+12,Iris,17355532889@163.com
+13,Jack,jack_ye@icloud.com
+14,Amelia,amelia_su@yahoo.com
+15,William,william.tian@gmail.com
+16,Isabella,1340132976@qq.com
+17,James,james_lei@163.com
+18,Chloe,chloe_zhou@foxmail.com
+19,Daniel,daniel_he@outlook.com
+20,Abigail,abigail_ren@126.com
+123,Emma,emma.liu2024@163.com
+124,Noah,noah_zhang@qq.com
+134,Olivia,olivia.wang@gmail.com
+145,Liam,liam_hao88@126.com
+151,Ava,ava_guo@foxmail.com
+161,Ethan,ethan.chen@outlook.com
+174,Sophia,sophia_li@hotmail.com
+185,Lucas,lucas_hu@139.com
+196,Mia,mia_zheng@189.com
+103,Alexander,alex_du@sina.com
+11,Charlotte,charlotte.yang@sohu.com
+200,123,456789@qq.com
+201,小明!,xiaoming@163.com
+202,test123,test123@example.com
+203,user_name,user@.com
+204,1234,abcd@@163.com
+205,Tom.Cat, tomcat  @ qq.com
+206,King,king@com
+207,CoCo1990,coco1990@demo.org
+208,888,888@test.com
+209,Mr.王,wang@invalid.us
+210,zzz,zzz@163
+211,名字很长很长很长很长很长,email@com.cn
+212,aaa,bbb@qq.com
+213,111,222@163.com
+214,happy,happy@outlook.com
+215,foo,bar@gmail.com
+216,lol,lol@live.com
+217,noname,
+218,,someone@qq.com
+219,   space   ,spaceman@126.com
+220,TEST,test@hotmail.com
+221,admin,admin@sohu.com
+222,guest,guest@sina.com
+223,user,user@139.com
+224,me,me@189.com
+225,hello,hello@icloud.com
+226,why,why@yahoo.com
+227,ok,ok@foxmail.com
+228,haha,haha@example.org
+229,wow,wow@mailinator.com
+230,gg,gg@temp-mail.com
+,,,
+231,real,17355532889@163.com

@@ -1,0 +1,56 @@
+# ---------------------------------------------------------
+# 核心版本控制
+# ---------------------------------------------------------
+version = "1.0"
+
+# ---------------------------------------------------------
+# [metadata] 元数据：用于数据治理和难度分级
+# ---------------------------------------------------------
+[metadata]
+author_name = "Zhang San"
+author_email = "zhangsan@example.com"
+difficulty = "medium"
+category = "software-engineering"
+tags = ["python", "csv", "cli", "data-cleaning", "validation"]
+expert_time_estimate_min = 30.0
+junior_time_estimate_min = 120.0
+
+# ---------------------------------------------------------
+# [verifier] 验证器配置：控制判题脚本的运行
+# ---------------------------------------------------------
+[verifier]
+timeout_sec = 600.0
+
+# ---------------------------------------------------------
+# [agent] Agent配置：控制 AI 的思考和执行时间
+# ---------------------------------------------------------
+[agent]
+timeout_sec = 2400.0
+
+# ---------------------------------------------------------
+# [environment] 环境配置：Docker 容器的资源限制
+# ---------------------------------------------------------
+[environment]
+build_timeout_sec = 600.0
+docker_image = "custom-bench/task-001:v1"
+cpus = 1
+memory = "2G"
+storage = "10G"
+
+[task]
+name = "csv-cleaner-cli"
+description = "A Python CLI tool to clean dirty CSV data with validation and standardization"
+language = "python"
+task_type = "data_processing"
+
+[requirements]
+python_version = "3.8.10"
+dependencies = ["csv", "argparse", "re", "os"]
+
+[input]
+file = "dirty_data.csv"
+format = "CSV"
+
+[output]
+file = "clean_data.csv"
+format = "CSV"

@@ -1,6 +1,8 @@
 E1
 # A
-
+git fetch
+git pull
+增删改查
 git push -u origin master
 
 #B
@@ -53,3 +55,9 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 git pull origin master --allow-unrelated-histories
 如果足够安全的情况下，强推覆盖
 git push -f -u origin master
+
+
+
+
+
+

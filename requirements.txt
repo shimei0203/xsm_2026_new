@@ -4,3 +4,5 @@ Python == 3.12.3
 pip == 26.0.1
 langchain_openai == 1.1.16
 langchain_community == 0.4.1 
+datasets == 4.8.4 
+huggingface_hub == 1.11.0          

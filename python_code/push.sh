@@ -86,3 +86,17 @@ On branch xsm_666
 Your branch is up to date with 'origin/xsm_666'.
 
 nothing to commit, working tree clean
+
+
+
+查看代码量
+git ls-files | xargs wc -l
+
+有时候会冲突
+
+如果提交信息有敏感词 / 违规内容：撤销最后一次违规提交（安全且不丢代码）
+bash
+运行
+# 撤销最后一次提交，代码保留，重新编辑提交信息
+git reset --mixed HEAD~1
+

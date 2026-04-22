@@ -98,3 +98,22 @@ AI 直接回答（无联网搜索）...
 #     # model="gpt-3.5-turbo",
 #     temperature=0.7
 # )
+
+
+""" 不是很确定，没有一一试过。但是应该大差不差。꒰⸝⸝⸝•ᴗ•⸝⸝⸝꒱ 𓄼𓆩🌷𓆪
+Not entirely sure, haven't tried each one. But it should be pretty close.
+如果你想看“还有哪些 tools”，常见的一批包括这些：
+
+搜索类：BingSearchRun、GoogleSearchRun、GoogleSerperRun、SearxSearchRun、BraveSearch、WikipediaQueryRun、ArxivQueryRun。
+
+邮件类：GmailSearch、GmailSendMessage、O365SearchEmails、O365SendMessage。
+
+文件与系统类：ReadFileTool、WriteFileTool、ListDirectoryTool、CopyFileTool、MoveFileTool、DeleteFileTool。
+
+数据库类：QuerySQLDataBaseTool、ListSQLDatabaseTool、InfoSQLDatabaseTool、QuerySparkSQLTool。
+
+网页与浏览类：NavigateTool、NavigateBackTool、ExtractTextTool、ExtractHyperlinksTool、GetElementsTool。
+
+其他实用类：PythonREPLTool、PythonAstREPLTool、ShellTool、HumanInputRun、YouTubeSearchTool、WolframAlphaQueryRun。
+
+"""

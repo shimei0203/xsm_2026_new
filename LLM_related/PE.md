@@ -197,3 +197,23 @@ Function Calling
   函数调用
 Deep Agents
   深度智能体
+
+
+
+
+
+### https://github.com/dair-ai/Prompt-Engineering-Guide
+
+1. 提示词数据集（可直接训练 / 测试）
+fka/awesome-chatgpt-prompts
+https://huggingface.co/datasets/fka/prompts.chat
+(第二次碰到了)
+
+2. 提示词工具与 Space（在线使用）
+Prompt Engineering Playground
+https://huggingface.co/learn/cookbook/zh-CN/prompt_tuning_peft
+
+
+3. 提示微调与 PEFT 教程（技术落地）
+Hugging Face 官方 PEFT 提示微调教程
+

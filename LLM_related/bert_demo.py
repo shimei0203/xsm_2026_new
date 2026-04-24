@@ -15,7 +15,7 @@ if torch.cuda.is_available():
 
 # ===================== 超参数【提速版 全参微调】=====================
 MODEL_NAME = "bert-base-uncased"
-NUM_EPOCHS = 3
+NUM_EPOCHS = 1
 MAX_SEQ_LEN = 128
 OUTPUT_DIR = "./bert_full_speed"
 
@@ -43,7 +43,7 @@ dataset = load_dataset("imdb")
 tokenized_data = dataset.map(tokenize_func, batched=True)
 
 # 🔥 提速关键：只用少量数据训练，速度爆炸快
-train_data = tokenized_data["train"].shuffle(seed=42).select(range(2000))
+train_data = tokenized_data["train"].shuffle(seed=42).select(range(4000))
 test_data = tokenized_data["test"].shuffle(seed=42).select(range(500))
 
 # 评估指标
@@ -118,4 +118,20 @@ for text in test_texts:
 {'eval_loss': 0.6339907050132751, 'eval_accuracy': 0.858, 'eval_runtime': 1.8823, 'eval_samples_per_second': 265.634, 'eval_steps_per_second': 33.47, 'epoch': 3.0}
 ✅ 测试集准确率: 0.8580
 ✅ 测试集损失: 0.6340
+"""
+
+
+"""
+========== 测试集最终结果 ==========
+{'eval_loss': 0.67840576171875, 'eval_accuracy': 0.838, 'eval_runtime': 1.7541, 'eval_samples_per_second': 285.043, 'eval_steps_per_second': 35.915, 'epoch': 3.0}
+✅ 测试集准确率: 0.8380
+✅ 测试集损失: 0.6784
+"""
+
+
+"""
+========== 测试集最终结果 ==========
+{'eval_loss': 0.3388783037662506, 'eval_accuracy': 0.862, 'eval_runtime': 1.7057, 'eval_samples_per_second': 293.139, 'eval_steps_per_second': 36.935, 'epoch': 1.0}
+✅ 测试集准确率: 0.8620
+✅ 测试集损失: 0.3389
 """

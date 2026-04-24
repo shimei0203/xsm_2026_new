@@ -1,1 +1,7 @@
 __pycache__
+LLM_related/peft_bert_final
+LLM_related/peft_bert_good
+LLM_related/bert_final_good/
+LLM_related/bert_full_finetune_good
+LLM_related/bert_full_speed
+LLM_related/peft_bert_final

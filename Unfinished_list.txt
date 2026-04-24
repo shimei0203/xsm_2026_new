@@ -10,3 +10,7 @@ function calling
 
 PE 提示词工程
 
+bert模型测试集。
+小模型没必要低秩，没必要LoRA PEFT
+全参即可。
+

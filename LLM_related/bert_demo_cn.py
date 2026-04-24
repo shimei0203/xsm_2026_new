@@ -1,3 +1,5 @@
+#未完成 中文数据集还有点问题
+
 import os
 os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 os.environ["TRANSFORMERS_VERBOSITY"] = "error"
@@ -7,17 +9,19 @@ import warnings
 warnings.filterwarnings('ignore')
 import numpy as np
 
+
 # 设备检测
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"✅ 使用设备: {device}")
 if torch.cuda.is_available():
     print(f"✅ CUDA 版本: {torch.version.cuda}")
 
-# ===================== 超参数【提速版 全参微调】=====================
-MODEL_NAME = "bert-base-uncased"
+# ===================== 超参数【中文 提速版 全参微调】=====================
+# 换成中文BERT模型
+MODEL_NAME = "bert-base-chinese"
 NUM_EPOCHS = 3
 MAX_SEQ_LEN = 128
-OUTPUT_DIR = "./bert_full_speed"
+OUTPUT_DIR = "./bert_chinese_full_speed"
 
 # 模型加载 & 全参开放
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
@@ -26,7 +30,7 @@ model = AutoModelForSequenceClassification.from_pretrained(
     MODEL_NAME, num_labels=2
 ).to(device)
 
-# 全参数可训练（你要的全参）
+# 全参数可训练
 for param in model.parameters():
     param.requires_grad = True
 
@@ -34,17 +38,24 @@ total = sum(p.numel() for p in model.parameters())
 trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"✅ 总参数: {total:,} | 全参可训练: {trainable:,}")
 
-# 数据处理
+# ===================== 中文数据集：ChnSentiCorp 中文情感分析 =====================
 from datasets import load_dataset
 def tokenize_func(examples):
-    return tokenizer(examples["text"], truncation=True, max_length=MAX_SEQ_LEN)
+    return tokenizer(
+        examples["text"],
+        truncation=True,
+        max_length=MAX_SEQ_LEN,
+        padding="max_length"
+    )
 
-dataset = load_dataset("imdb")
+# 加载标准中文情感二分类数据集
+dataset = load_dataset("seamew/ChnSentiCorp")
 tokenized_data = dataset.map(tokenize_func, batched=True)
 
-# 🔥 提速关键：只用少量数据训练，速度爆炸快
+# 少量数据快速训练（保持速度快）
 train_data = tokenized_data["train"].shuffle(seed=42).select(range(2000))
 test_data = tokenized_data["test"].shuffle(seed=42).select(range(500))
+
 
 # 评估指标
 def compute_metrics(eval_pred):
@@ -52,20 +63,20 @@ def compute_metrics(eval_pred):
     predictions = np.argmax(logits, axis=-1)
     return {"accuracy": (predictions == labels).mean().item()}
 
-# ===================== 训练参数【2060极致提速配置】=====================
+# ===================== 训练参数【2060极致提速】=====================
 from transformers import TrainingArguments, Trainer, DataCollatorWithPadding
 training_args = TrainingArguments(
     output_dir=OUTPUT_DIR,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    learning_rate=2e-5,       # BERT标准最优学习率
+    learning_rate=2e-5,
     num_train_epochs=NUM_EPOCHS,
     logging_steps=20,
     evaluation_strategy="epoch",
-    save_strategy="no",        # 不存权重 提速
+    save_strategy="no",
     weight_decay=0.01,
     warmup_ratio=0.05,
-    fp16=True,                # 🔥 混合精度 提速40%+
+    fp16=True,                # 混合精度加速
     report_to="none",
     dataloader_num_workers=0,
 )
@@ -80,7 +91,7 @@ trainer = Trainer(
 )
 
 # 训练
-print("\n🚀 快速全参微调开始...")
+print("\n🚀 中文BERT 快速全参微调开始...")
 trainer.train()
 
 # 测试集结果
@@ -89,15 +100,15 @@ eval_results = trainer.evaluate()
 print(f"✅ 测试集准确率: {eval_results['eval_accuracy']:.4f}")
 print(f"✅ 测试集损失: {eval_results['eval_loss']:.4f}")
 
-# 推理
-print("\n========== 自定义文本测试 ==========")
+# 中文推理测试
+print("\n========== 中文文本情感测试 ==========")
 test_texts = [
-    "This movie is fantastic and totally worth watching",
-    "It’s boring and a complete waste of time",
-    "The plot is exciting and the acting is perfect",
-    "The story is dull and the characters are flat",
-    "Great visuals and a warm, touching story",
-    "Full of plot holes and a terrible ending",
+    "这部电影太好看了，演员演技在线，剧情精彩，强烈推荐！",
+    "太难看了，浪费时间，剧情毫无逻辑，演技尴尬",
+    "画面精美，故事感人，非常值得一看",
+    "节奏太慢，情节枯燥，看得昏昏欲睡",
+    "非常棒的作品，温暖治愈，看完心情很好",
+    "全程无亮点，剧情老套，不推荐观看",
 ]
 
 model.eval()
@@ -106,16 +117,4 @@ for text in test_texts:
     with torch.no_grad():
         pred = torch.argmax(model(**inputs).logits, dim=1).item()
     print(f"文本: {text}")
-    print(f"情感: {'正面' if pred==1 else '负面'}\n")
-
-
-
-
-
-
-"""
-========== 测试集最终结果 ==========
-{'eval_loss': 0.6339907050132751, 'eval_accuracy': 0.858, 'eval_runtime': 1.8823, 'eval_samples_per_second': 265.634, 'eval_steps_per_second': 33.47, 'epoch': 3.0}
-✅ 测试集准确率: 0.8580
-✅ 测试集损失: 0.6340
-"""
+    print(f"情感: {'✅ 正面' if pred==1 else '❌ 负面'}\n")

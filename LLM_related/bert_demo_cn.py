@@ -19,7 +19,7 @@ if torch.cuda.is_available():
 # ===================== 超参数【中文 提速版 全参微调】=====================
 # 换成中文BERT模型
 MODEL_NAME = "bert-base-chinese"
-NUM_EPOCHS = 3
+NUM_EPOCHS = 1
 MAX_SEQ_LEN = 128
 OUTPUT_DIR = "./bert_chinese_full_speed"
 
@@ -49,11 +49,13 @@ def tokenize_func(examples):
     )
 
 # 加载标准中文情感二分类数据集
+
+# dataset = load_dataset("imdb")
 dataset = load_dataset("seamew/ChnSentiCorp")
 tokenized_data = dataset.map(tokenize_func, batched=True)
 
 # 少量数据快速训练（保持速度快）
-train_data = tokenized_data["train"].shuffle(seed=42).select(range(2000))
+train_data = tokenized_data["train"].shuffle(seed=42).select(range(4000))
 test_data = tokenized_data["test"].shuffle(seed=42).select(range(500))
 
 
@@ -62,7 +64,7 @@ def compute_metrics(eval_pred):
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
     return {"accuracy": (predictions == labels).mean().item()}
-
+ 
 # ===================== 训练参数【2060极致提速】=====================
 from transformers import TrainingArguments, Trainer, DataCollatorWithPadding
 training_args = TrainingArguments(
@@ -118,3 +120,26 @@ for text in test_texts:
         pred = torch.argmax(model(**inputs).logits, dim=1).item()
     print(f"文本: {text}")
     print(f"情感: {'✅ 正面' if pred==1 else '❌ 负面'}\n")
+
+
+
+
+
+
+
+
+
+"""
+========== 测试集最终结果 ==========
+{'eval_loss': 0.5742729306221008, 'eval_accuracy': 0.706, 'eval_runtime': 1.727, 'eval_samples_per_second': 289.516, 'eval_steps_per_second': 36.479, 'epoch': 3.0}
+✅ 测试集准确率: 0.7060
+✅ 测试集损失: 0.5743
+"""
+
+
+"""
+========== 测试集最终结果 ==========
+{'eval_loss': 0.6252944469451904, 'eval_accuracy': 0.652, 'eval_runtime': 1.6905, 'eval_samples_per_second': 295.777, 'eval_steps_per_second': 37.268, 'epoch': 1.0}
+✅ 测试集准确率: 0.6520
+✅ 测试集损失: 0.6253
+"""
